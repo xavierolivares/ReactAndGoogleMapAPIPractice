@@ -1,3 +1,6 @@
+Tutorial: https://scotch.io/tutorials/react-apps-with-the-google-maps-api-and-google-maps-react
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
