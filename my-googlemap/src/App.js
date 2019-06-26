@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
+import { GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
 import {API_KEY} from './secrets'
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
+
+import CurrentLocation from './Map';
 
 export class MapContainer extends Component {
   state = {
@@ -21,7 +19,7 @@ export class MapContainer extends Component {
     })
   }
   
-  onclose = (props) => {
+  onClose = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -32,29 +30,21 @@ export class MapContainer extends Component {
 
   render() {
     return (
-      <Map
+      <CurrentLocation
+        centerAroundCurrentLocation
         google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{
-         lat: -1.2884,
-         lng: 36.8233
-        }}
       >
-      <Marker
-        onClick={this.onMarkerClick}
-        name={'Kenyatta International Convention Center'}
-      />
-      <InfoWindow
-        marker={this.state.activeMarker}
-        visible={this.state.showingInfoWindow}
-        onClose={this.onClose}
-      >
-       <div>
-         <h4>{this.state.selectedPlace.name}</h4>
-       </div>
-      </InfoWindow>
-      </Map>
+        <Marker onClick={this.onMarkerClick} name={'current location'} />
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+          onClose={this.onClose}
+        >
+          <div>
+            <h4>{this.state.selectedPlace.name}</h4>
+          </div>
+        </InfoWindow>
+      </CurrentLocation>
     );
   }
 }
